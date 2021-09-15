@@ -4,22 +4,22 @@
       type="text"
       v-model.trim="task.title"
       :class="[darkMode && 'dark']"
-      :placeholder="[english ? 'Type a new note' : 'Escribe una nueva nota']"
+      :placeholder="$t('placeholder')"
     />
     <button type="submit">
-      {{ english ? "Add note" : "Añadir nota" }}
+      {{ $t("addNote") }}
     </button>
   </form>
 </template>
 
 <script>
 export default {
-  props: ['darkMode', 'english', 'task'],
+  props: ["darkMode", "task"],
 
   methods: {
     newTask() {
-      this.$emit('newTask')
-    }
+      this.$emit("newTask")
+    },
   },
 }
 </script>

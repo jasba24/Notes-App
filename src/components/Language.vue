@@ -1,20 +1,41 @@
 <template>
   <div class="language">
     <div
-      @click="changeLanguage()"
-      :style="{ width: '48px', height: '48px' }"
-      :class="[english ? 'spanish' : 'english']"
+      @mouseover="showLanguages"
+      @mouseleave="showLanguages"
+      class="showLanguages"
     ></div>
+    <div class="language__container">
+      <div
+        :style="{ width: '48px', height: '48px' }"
+        v-show="show"
+        v-for="(language, i) in languages"
+        :key="i"
+        @click="changeLanguage(language.locale)"
+        :class="language.class"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["english"],
+  data() {
+    return {
+      languages: [
+        { locale: "es", class: "spanish" },
+        { locale: "en", class: "english" },
+      ],
+      show: false,
+    }
+  },
 
   methods: {
-    changeLanguage() {
-      this.$emit("changeLanguage")
+    changeLanguage(locale) {
+      this.$i18n.locale = locale
+    },
+    showLanguages(value) {
+      this.show = !this.show
     },
   },
 }

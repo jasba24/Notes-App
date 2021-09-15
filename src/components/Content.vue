@@ -1,6 +1,6 @@
 <template>
   <div :class="{ className }">
-    <h2>{{ english ? englishDescription : spanishDescription }}</h2>
+    <h2>{{ $t(i18n) }}</h2>
     <hr />
     <slot></slot>
   </div>
@@ -8,6 +8,6 @@
 
 <script>
 export default {
-  props: ["class", "english", "englishDescription", "spanishDescription"],
+  props: ["class", "i18n"],
 }
 </script>

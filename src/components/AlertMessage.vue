@@ -1,11 +1,11 @@
 <template>
   <p>
-    {{ english ? englishDescription : spanishDescription }}
+    {{ $t(i18n) }}
   </p>
 </template>
 
 <script>
 export default {
-  props: ["english", "englishDescription", "spanishDescription"],
+  props: ["i18n"],
 }
 </script>

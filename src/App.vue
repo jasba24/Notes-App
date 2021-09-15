@@ -4,48 +4,29 @@
       <!-- OPTIONS (DARKMODE - LANGUAGE) -->
       <section class="options">
         <Darkmode :darkmode="darkmode" @changeDarkMode="changeDarkMode" />
-        <Language @changeLanguage="changeLanguage" :english="english" />
+        <Language @changeLanguage="changeLanguage" />
       </section>
       <!-- END OPTIONS (DARKMODE - LANGUAGE) -->
 
       <section class="content">
         <!-- NEW NOTE CONTAINER -->
-        <Content
-          className="new-notes"
-          :english="english"
-          englishDescription="New notes"
-          spanishDescription="Nuevas notas"
-        >
+        <Content className="new-notes" i18n="description1">
           <div v-if="flag_add" class="message-success">
-            <AlertMessage
-              :english="english"
-              englishDescription="Note added successfully!"
-              spanishDescription="¡Nota añadida con éxito!"
-            />
+            <AlertMessage i18n="success" />
           </div>
           <div v-if="flag_delete" class="message-delete">
-            <AlertMessage
-              :english="english"
-              englishDescription="Note successfully removed!"
-              spanishDescription="¡Nota eliminada con éxito!"
-            />
+            <AlertMessage i18n="failed" />
           </div>
           <CreateNoteForm
             @newTask="newTask"
             :task="task"
             :darkMode="darkMode"
-            :english="english"
           />
         </Content>
         <!-- END NEW NOTE CONTAINER -->
 
         <!-- MY NOTES (LIST) -->
-        <Content
-          className="my-notes"
-          :english="english"
-          englishDescription="My notes"
-          spanishDescription="Mis notas"
-        >
+        <Content className="my-notes" i18n="description2">
           <ul class="notes">
             <li
               :class="[task.done && 'task-done', darkMode && 'dark', 'note']"
@@ -98,7 +79,6 @@ export default {
       flag_add: false,
       flag_delete: false,
       darkMode: false,
-      english: true,
     }
   },
   methods: {
@@ -113,12 +93,6 @@ export default {
         this.darkMode = JSON.parse(localStorage.getItem("darkMode"))
       } else {
         localStorage.setItem("darkMode", JSON.stringify([]))
-      }
-
-      if (localStorage.getItem("english")) {
-        this.english = JSON.parse(localStorage.getItem("english"))
-      } else {
-        localStorage.setItem("english", JSON.stringify([]))
       }
     },
     newTask() {
@@ -161,10 +135,6 @@ export default {
     changeDarkMode() {
       this.darkMode = !this.darkMode
       localStorage.setItem("darkMode", JSON.stringify(this.darkMode))
-    },
-    changeLanguage() {
-      this.english = !this.english
-      localStorage.setItem("english", JSON.stringify(this.english))
     },
     uuidv4() {
       return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
